@@ -7,7 +7,7 @@ export default () => {
   var baseConfig = getBaseConfig()
   return merge(baseConfig, {
     cache: true,
-    devtool: false,
+    devtool: '#cheap-source-map',
     output: {
       publicPath: '/'
     },
