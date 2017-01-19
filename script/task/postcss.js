@@ -52,15 +52,10 @@ export default () => {
     nodir: true,
     cwd: path.join(projectRoot, 'src')
   })
-  return new Promise((resolve, reject) => {
-    csses.forEach((it, idx) => {
-      compileCssFile(path.join(projectRoot, 'src', it))
-        .then(() => {
-          if (idx === csses.length - 1) {
-            console.log(colors.bgGreen(`[task ${leftPad('postcss', 14)}]`), 'done')
-            resolve()
-          }
-        })
-    })
+  var compileCssFilePromises = []
+  csses.forEach((it, idx) => {
+    var compile = compileCssFile(path.join(projectRoot, 'src', it))
+    compileCssFilePromises.push(compile)
   })
+  return Promise.all(compileCssFilePromises)
 }
