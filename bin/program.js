@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import program from 'commander'
 import pkg from '../package.json'
 import aliasEnv from '../script/util/alias-env'
@@ -103,7 +105,7 @@ program
   })
 
 program
-  .option('-t, --tasks <items>', 'list tasks to exec', (val) => {
+  .option('-t, --tasks <items>', 'tasks\' list to exec', (val) => {
     return val.split(',')
   })
   .option('-e, --node_env [env]', 'define NODE_ENV, a string should be "development", "dev", "experiment", "exp", "production" or "prod"')
