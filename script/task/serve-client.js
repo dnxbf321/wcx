@@ -3,12 +3,12 @@ import staticServe from 'koa-static'
 import colors from 'colors'
 import leftPad from 'left-pad'
 import path from 'path'
-import { getConf } from '../util/config'
+import { getDevConf } from '../util/config'
 
 var projectRoot = process.cwd()
 
 export default () => {
-  var config = getConf()
+  var config = getDevConf()
   var app = koa()
 
   // serve pure static assets
@@ -21,7 +21,7 @@ export default () => {
   })
   app.use(staticServe(path.join(projectRoot, 'dist/')))
 
-  var PORT = config['dev-port'] || 9000
+  var PORT = config['serve-client-port'] || 9000
   return new Promise((resolve, reject) => {
     app.listen(PORT, (err) => {
       if (err) {

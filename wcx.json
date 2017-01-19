@@ -10,8 +10,8 @@
     "banner": "copyright info"
   },
   "postcss": {},
+  "serve-client-port": 9000,
   "default": {
-    "dev-port": 9000,
     "publicPath": ""
   },
   "experiment": {},

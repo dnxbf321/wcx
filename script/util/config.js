@@ -29,8 +29,8 @@ export function getConf() {
 export function getDevConf() {
   var devConf = extend(true, {}, getConf(), {
     ftp: config['ftp'],
+    'serve-client-port': config['serve-client-port'],
     postcss: config['postcss'],
-    entryPrefixer: config['entryPrefixer'],
     webpack: config['webpack'] || {}
   })
   return devConf
