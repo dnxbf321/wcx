@@ -1,7 +1,7 @@
 import extend from 'extend'
 import postcssEasyImport from 'postcss-easy-import'
 import precss from 'precss'
-import postcssPxtorem from 'postcss-pxtorem'
+import postcssPxtorpx from 'postcss-pxtorpx'
 import rucksackCss from 'rucksack-css'
 import postcssAssets from 'postcss-assets'
 import autoprefixer from 'autoprefixer'
@@ -16,7 +16,7 @@ export default () => {
   var enableConfig = extend({
     'postcss-easy-import': true,
     'precss': true,
-    'postcss-pxtorem': true,
+    'postcss-pxtorpx': true,
     'rucksack-css': true,
     'postcss-assets': true,
     'autoprefixer': true,
@@ -30,8 +30,8 @@ export default () => {
   if (enableConfig['precss']) {
     plugins.push(precss(postcssConf.precss || {}))
   }
-  if (enableConfig['postcss-pxtorem']) {
-    plugins.push(postcssPxtorem(postcssConf['postcss-pxtorem'] || {}))
+  if (enableConfig['postcss-pxtorpx']) {
+    plugins.push(postcssPxtorpx(postcssConf['postcss-pxtorpx'] || {}))
   }
   if (enableConfig['rucksack-css']) {
     plugins.push(rucksackCss(postcssConf['rucksack-css'] || {}))

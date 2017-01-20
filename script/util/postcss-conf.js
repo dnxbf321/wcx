@@ -5,7 +5,7 @@ import { getDevConf } from './config'
 var pluginList = [
   'postcss-easy-import',
   'precss',
-  'postcss-pxtorem',
+  'postcss-pxtorpx',
   'rucksack-css',
   'postcss-assets',
   'autoprefixer',
@@ -36,12 +36,11 @@ export default () => {
         disable: true
       }
     }, postcss['precss']),
-    'postcss-pxtorem': extend(true, {
-      propWhiteList: [],
-      selectorBlackList: [/^html$/, /\.norem/]
-    }, postcss['postcss-pxtorem']),
+    'postcss-pxtorpx': extend(true, {
+      propWhiteList: []
+    }, postcss['postcss-pxtorpx']),
     'rucksack-css': extend(true, {
-      fallbacks: true
+      alias: false
     }, postcss['rucksack-css']),
     'postcss-assets': extend(true, {
       loadPaths: [path.join(process.cwd(), 'src')],

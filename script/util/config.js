@@ -12,7 +12,7 @@ try {
   })
   projectConf = JSON.parse(projectConf.toString())
 } catch ( e ) {
-  console.log('[wcx          warn] wcx.json not found, all is default')
+  console.log('[wcx            warn] wcx.json not found, all is default')
 }
 
 var config = extend(true, {}, wcxConf, projectConf)
