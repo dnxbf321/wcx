@@ -20,6 +20,8 @@ export default () => {
   var baseConf = {
     context: srcRoot,
     entry: entry,
+    watch: false,
+    target: 'web',
     output: {
       filename: '[name].js?[hash]',
       chunkFilename: '[name].js?[chunkhash]',
@@ -27,44 +29,51 @@ export default () => {
       publicPath: path.join(config.publicPath, '/').replace(/\\/g, '/').replace(/\:\/([^\/])/i, '://$1')
     },
     resolve: {
-      extensions: ['', '.js'],
-      root: [path.join(projectRoot, 'node_modules')],
-      fallback: [path.join(cliRoot, 'node_modules')]
+      modules: [
+        path.join(projectRoot, 'node_modules')
+      ]
     },
     resolveLoader: {
-      root: [path.join(cliRoot, 'node_modules')],
-      fallback: [path.join(projectRoot, 'node_modules')]
+      modules: [
+        path.join(cliRoot, 'node_modules')
+      ]
     },
     module: {
-      preLoaders: [{
-        test: /\.js$/,
-        loader: 'eslint',
-        include: srcRoot,
-        exclude: /node_modules/
-      }],
-      loaders: [{
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        query: babelrc
-      }, {
-        test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
-        loader: 'url',
-        query: {
-          limit: 1,
-          name: '[path][name].[ext]?[hash]'
+      rules: [
+        {
+          test: /\.js$/,
+          include: [srcRoot],
+          exclude: /node_modules/,
+          use: [{
+            loader: 'eslint-loader',
+            options: {
+              configFile: path.join(projectRoot, '.eslintrc.js'),
+              formatter: require('eslint-friendly-formatter')
+            }
+          }],
+          enforce: 'pre'
+        }, {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: [{
+            loader: 'babel-loader',
+            options: babelrc
+          }]
+        }, {
+          test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
+          use: [{
+            loader: 'url-loader',
+            options: {
+              limit: 1,
+              name: '[path][name].[ext]?[hash]'
+            }
+          }]
         }
-      }]
+      ]
     },
-    eslint: {
-      configFile: path.join(projectRoot, '.eslintrc.js'),
-      formatter: require('eslint-friendly-formatter')
-    },
-    babel: babelrc,
     plugins: [
       new webpack.IgnorePlugin(/vertx/),
       new webpack.DefinePlugin(definition),
-      new webpack.optimize.OccurenceOrderPlugin(),
       new progressBarWebpackPlugin({
         format: colors.bgCyan(`[webpack ${leftPad('build', 11)}]`) + '[:bar] ' + colors.green.bold(':percent') + ' (:elapsed seconds)',
         clear: false

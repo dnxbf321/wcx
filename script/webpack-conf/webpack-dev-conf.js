@@ -12,7 +12,7 @@ export default () => {
       publicPath: '/'
     },
     plugins: [
-      new webpack.NoErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin()
     ]
   })
 }

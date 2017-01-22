@@ -3,3 +3,5 @@ test*
 node_modules
 log
 tmp
+.editorconfig
+produce-es5-code.js
