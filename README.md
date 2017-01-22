@@ -21,8 +21,7 @@ wcx --help
 - ECMAScript 6 语法
 - postcss 处理 wxss 文件
 - eslint 语法检查
-
-待支持
 - px 自动转 rpx 单位
+- 静态资源服务器
 
 # 待开发，预计春节后开发完成
