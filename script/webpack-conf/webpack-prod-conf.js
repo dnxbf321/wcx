@@ -2,10 +2,12 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import getBaseConfig from './webpack-base-conf'
+import { getCustomConfig } from './webpack-base-conf'
 import { getDevConf } from '../util/config'
 
 export default () => {
   var config = getDevConf()
+  var customConfig = getCustomConfig()
   return merge(getBaseConfig(), {
     stats: {
       children: false
@@ -23,8 +25,9 @@ export default () => {
       })
     ]
       .concat(config.webpack.banner ?
-        new webpack.BannerPlugin(config.webpack.banner + ' | built at ' + new Date(config.version), {
+        new webpack.BannerPlugin({
+          banner: config.webpack.banner + ' | built at ' + new Date(config.version),
           entryOnly: true
         }) : [])
-  })
+  }, customConfig)
 }

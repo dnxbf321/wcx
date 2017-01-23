@@ -3,6 +3,7 @@ import colors from 'colors'
 import leftPad from 'left-pad'
 import webpack from 'webpack'
 import progressBarWebpackPlugin from 'progress-bar-webpack-plugin'
+import requireUncached from 'require-uncached'
 import getDefinition from './webpack-definition'
 import entry from './webpack-entry'
 import { getDevConf } from '../util/config'
@@ -35,6 +36,7 @@ export default () => {
     },
     resolveLoader: {
       modules: [
+        path.join(projectRoot, 'node_modules'),
         path.join(cliRoot, 'node_modules')
       ]
     },
@@ -81,4 +83,10 @@ export default () => {
     ]
   }
   return baseConf
+}
+
+export function getCustomConfig() {
+  var webpackConfJs = path.join(projectRoot, 'webpack.config.js')
+  var conf = requireUncached(webpackConfJs)
+  return conf
 }
